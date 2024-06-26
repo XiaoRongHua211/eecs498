@@ -234,7 +234,7 @@ namespace OpenCVForUnityExample
             string completeUrl = $"{url}?key={apiKey}";
             Debug.Log("JsonRequestBody: " + jsonRequestBody);
 
-            using (UnityWebRequest request = UnityWebRequest.Post(completeUrl, jsonRequestBody))
+            using (UnityWebRequest request = UnityWebRequest.PostWwwForm(completeUrl, jsonRequestBody))
             {
                 request.SetRequestHeader("Content-Type", "application/json");
                 request.uploadHandler.contentType = "application/json";
