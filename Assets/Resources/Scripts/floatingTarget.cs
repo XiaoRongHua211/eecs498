@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
@@ -71,14 +72,14 @@ public class floatingTarget : MonoBehaviour
             if (other.gameObject.GetComponent<Bullet_Mngr>().GetLabel() == label)
             {
                 //Destroy(gameObject);
-                StartCoroutine(enumerator(label));
+                enumerator(label);
             }
 
             // Destroy(other.gameObject);
         }
     }
 
-    IEnumerator enumerator(string label)
+    async void  enumerator(string label)
     {
         switch (label)
         {
@@ -111,18 +112,16 @@ public class floatingTarget : MonoBehaviour
                 break;
         }
         GameObject obj = Instantiate(GameObject.Find("EffectObj"));
+        gameObject.SetActive(false);
         obj.transform.GetChild(0).gameObject.SetActive(true);
         obj.transform.position = transform.position;
         obj.GetComponentInChildren<AudioSource>().Play();
-        //obj.GetComponentInChildren<ParticleSystem>().Play();
-        Destroy(gameObject);
         //特效播放
         //bulletParticle.Play();
         //击中声音播放
-        yield return new WaitForSeconds(1f);
+        await Task.Delay(1000);
         obj.SetActive(false);
         Destroy(obj);
-        yield return null;
-
+        Destroy(gameObject);
     }
 }
