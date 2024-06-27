@@ -26,7 +26,7 @@ public class floatingTarget : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        shooting_Mngr=GameObject.Find("Canvas").GetComponent<Shooting_Mngr>();
+        shooting_Mngr = GameObject.Find("Canvas").GetComponent<Shooting_Mngr>();
         gameObject.GetComponent<Transform>().position = center;
         startTime = Time.time;
         startPosition = center;
@@ -110,12 +110,19 @@ public class floatingTarget : MonoBehaviour
                 shooting_Mngr.ScoreNum += 4;
                 break;
         }
-        BombAudio.Play();
+        GameObject obj = Instantiate(GameObject.Find("EffectObj"));
+        obj.transform.GetChild(0).gameObject.SetActive(true);
+        obj.transform.position = transform.position;
+        obj.GetComponentInChildren<AudioSource>().Play();
+        //obj.GetComponentInChildren<ParticleSystem>().Play();
         Destroy(gameObject);
         //特效播放
         //bulletParticle.Play();
         //击中声音播放
+        yield return new WaitForSeconds(1f);
+        obj.SetActive(false);
+        Destroy(obj);
         yield return null;
-      
+
     }
 }
