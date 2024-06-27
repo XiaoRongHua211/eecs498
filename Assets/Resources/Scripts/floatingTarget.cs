@@ -20,8 +20,6 @@ public class floatingTarget : MonoBehaviour
 
     private Vector3 rotateOffset;
 
-    public ParticleSystem bulletParticle;
-    public AudioSource BombAudio;
     private Shooting_Mngr shooting_Mngr;
 
     // Start is called before the first frame update
@@ -74,44 +72,30 @@ public class floatingTarget : MonoBehaviour
                 //Destroy(gameObject);
                 enumerator(label);
             }
+            else shooting_Mngr.SeriesNum = 0;
 
             // Destroy(other.gameObject);
         }
     }
 
-    async void  enumerator(string label)
+    async void enumerator(string label)
     {
+        shooting_Mngr.SeriesNum++;
+        switch (shooting_Mngr.SeriesNum)
+        {
+            case 3:
+                shooting_Mngr.ScoreNum += 10;
+                break;
+            case 6:
+                shooting_Mngr.ScoreNum += 50;
+                break;
+            case 9:
+                shooting_Mngr.ScoreNum += 100;
+                break;
+        }
         shooting_Mngr.ScoreNum += 10;
-        //switch (label)
-        //{
-        //    case "apple":
-        //        shooting_Mngr.ScoreNum += 10;
-        //        break;
-        //    case "book":
-        //        shooting_Mngr.ScoreNum += 11;
-        //        break;
-        //    case "bottle":
-        //        shooting_Mngr.ScoreNum += 9;
-        //        break;
-        //    case "cell phone":
-        //        shooting_Mngr.ScoreNum += 7;
-        //        break;
-        //    case "chair":
-        //        shooting_Mngr.ScoreNum += 8;
-        //        break;
-        //    case "keyboard":
-        //        shooting_Mngr.ScoreNum += 2;
-        //        break;
-        //    case "laptop":
-        //        shooting_Mngr.ScoreNum += 3;
-        //        break;
-        //    case "tv monitor":
-        //        shooting_Mngr.ScoreNum += 1;
-        //        break;
-        //    case "mouse":
-        //        shooting_Mngr.ScoreNum += 4;
-        //        break;
-        //}
+       
+        GameObject.Find("Canvas").GetComponent<target_manager>().ObjActive();
         GameObject obj = Instantiate(GameObject.Find("EffectObj"));
         gameObject.SetActive(false);
         obj.transform.GetChild(0).gameObject.SetActive(true);

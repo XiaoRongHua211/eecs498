@@ -8,6 +8,7 @@ public class Shooting_Mngr : MonoBehaviour
     public AudioSource Shootaudio;
     public Text ScoreTxt;
     public int ScoreNum;
+    public int SeriesNum;
     public float speed = 20.0f;
 
     // Start is called before the first frame update
