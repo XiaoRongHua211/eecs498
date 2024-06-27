@@ -81,44 +81,41 @@ public class floatingTarget : MonoBehaviour
 
     async void  enumerator(string label)
     {
-        switch (label)
-        {
-            case "apple":
-                shooting_Mngr.ScoreNum += 10;
-                break;
-            case "book":
-                shooting_Mngr.ScoreNum += 11;
-                break;
-            case "bottle":
-                shooting_Mngr.ScoreNum += 9;
-                break;
-            case "cell phone":
-                shooting_Mngr.ScoreNum += 7;
-                break;
-            case "chair":
-                shooting_Mngr.ScoreNum += 8;
-                break;
-            case "keyboard":
-                shooting_Mngr.ScoreNum += 2;
-                break;
-            case "laptop":
-                shooting_Mngr.ScoreNum += 3;
-                break;
-            case "tv monitor":
-                shooting_Mngr.ScoreNum += 1;
-                break;
-            case "mouse":
-                shooting_Mngr.ScoreNum += 4;
-                break;
-        }
+        shooting_Mngr.ScoreNum += 10;
+        //switch (label)
+        //{
+        //    case "apple":
+        //        shooting_Mngr.ScoreNum += 10;
+        //        break;
+        //    case "book":
+        //        shooting_Mngr.ScoreNum += 11;
+        //        break;
+        //    case "bottle":
+        //        shooting_Mngr.ScoreNum += 9;
+        //        break;
+        //    case "cell phone":
+        //        shooting_Mngr.ScoreNum += 7;
+        //        break;
+        //    case "chair":
+        //        shooting_Mngr.ScoreNum += 8;
+        //        break;
+        //    case "keyboard":
+        //        shooting_Mngr.ScoreNum += 2;
+        //        break;
+        //    case "laptop":
+        //        shooting_Mngr.ScoreNum += 3;
+        //        break;
+        //    case "tv monitor":
+        //        shooting_Mngr.ScoreNum += 1;
+        //        break;
+        //    case "mouse":
+        //        shooting_Mngr.ScoreNum += 4;
+        //        break;
+        //}
         GameObject obj = Instantiate(GameObject.Find("EffectObj"));
         gameObject.SetActive(false);
         obj.transform.GetChild(0).gameObject.SetActive(true);
         obj.transform.position = transform.position;
-        obj.GetComponentInChildren<AudioSource>().Play();
-        //特效播放
-        //bulletParticle.Play();
-        //击中声音播放
         await Task.Delay(1000);
         obj.SetActive(false);
         Destroy(obj);

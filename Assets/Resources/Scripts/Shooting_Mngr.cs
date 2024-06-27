@@ -8,6 +8,8 @@ public class Shooting_Mngr : MonoBehaviour
     public AudioSource Shootaudio;
     public Text ScoreTxt;
     public int ScoreNum;
+    public float speed = 20.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +18,7 @@ public class Shooting_Mngr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ScoreTxt.text= $"ÀÛ¼Æ·ÖÊý£º{ScoreNum}";
+        ScoreTxt.text = $"Total Score£º{ScoreNum}";
     }
 
     public void OnShooting()
@@ -36,8 +38,9 @@ public class Shooting_Mngr : MonoBehaviour
         obj.GetComponent<Bullet_Mngr>().SetLabel(LanguageDictionary.TranslateToEnglish(inputWord));
 
         obj.GetComponent<Transform>().position = Camera.main.transform.position;
+        obj.transform.rotation= Camera.main.transform.rotation;
 
-        obj.GetComponent<Rigidbody>().velocity = forwardVector * 20.0f;
+        obj.GetComponent<Rigidbody>().velocity = forwardVector * speed /*20.0f*/;
 
         Debug.Log(LanguageDictionary.TranslateToEnglish(inputWord));
 
