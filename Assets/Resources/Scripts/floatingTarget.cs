@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class floatingTarget : MonoBehaviour
 {
@@ -12,14 +14,19 @@ public class floatingTarget : MonoBehaviour
     private Vector3 startPosition;
     private Vector3 targetPosition;
     private float journeyLength;
-    
+
     private float speed = 1f;
 
     private Vector3 rotateOffset;
 
+    public ParticleSystem bulletParticle;
+    public AudioSource BombAudio;
+    private Shooting_Mngr shooting_Mngr;
+
     // Start is called before the first frame update
     void Start()
     {
+        shooting_Mngr=GameObject.Find("Canvas").GetComponent<Shooting_Mngr>();
         gameObject.GetComponent<Transform>().position = center;
         startTime = Time.time;
         startPosition = center;
@@ -37,7 +44,7 @@ public class floatingTarget : MonoBehaviour
         float fractionOfJourney = distCovered / journeyLength;
 
         if (fractionOfJourney > 1)
-        { 
+        {
             fractionOfJourney = 1;
         }
 
@@ -63,10 +70,52 @@ public class floatingTarget : MonoBehaviour
             Debug.Log("Bullet Label:" + other.gameObject.GetComponent<Bullet_Mngr>().GetLabel() + "Obj Label:" + label);
             if (other.gameObject.GetComponent<Bullet_Mngr>().GetLabel() == label)
             {
-                Destroy(gameObject);
+                //Destroy(gameObject);
+                StartCoroutine(enumerator(label));
             }
-            
+
             // Destroy(other.gameObject);
         }
+    }
+
+    IEnumerator enumerator(string label)
+    {
+        switch (label)
+        {
+            case "apple":
+                shooting_Mngr.ScoreNum += 10;
+                break;
+            case "book":
+                shooting_Mngr.ScoreNum += 11;
+                break;
+            case "bottle":
+                shooting_Mngr.ScoreNum += 9;
+                break;
+            case "cell phone":
+                shooting_Mngr.ScoreNum += 7;
+                break;
+            case "chair":
+                shooting_Mngr.ScoreNum += 8;
+                break;
+            case "keyboard":
+                shooting_Mngr.ScoreNum += 2;
+                break;
+            case "laptop":
+                shooting_Mngr.ScoreNum += 3;
+                break;
+            case "tv monitor":
+                shooting_Mngr.ScoreNum += 1;
+                break;
+            case "mouse":
+                shooting_Mngr.ScoreNum += 4;
+                break;
+        }
+        BombAudio.Play();
+        Destroy(gameObject);
+        //特效播放
+        //bulletParticle.Play();
+        //击中声音播放
+        yield return null;
+      
     }
 }

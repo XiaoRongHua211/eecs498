@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class Shooting_Mngr : MonoBehaviour
 {
     public GameObject bullet_prefab;
-
+    public AudioSource Shootaudio;
+    public Text ScoreTxt;
+    public int ScoreNum;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,12 +16,14 @@ public class Shooting_Mngr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        ScoreTxt.text= $"ÀÛ¼Æ·ÖÊý£º{ScoreNum}";
     }
 
     public void OnShooting()
     {
         GameObject obj = GameObject.Instantiate(bullet_prefab);
+
+        Shootaudio.Play();
 
         Debug.Log(Camera.main.transform.position);
 
