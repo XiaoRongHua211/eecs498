@@ -21,6 +21,7 @@ public class floatingTarget : MonoBehaviour
     private Vector3 rotateOffset;
 
     private Shooting_Mngr shooting_Mngr;
+    private bool isOne;
 
     // Start is called before the first frame update
     void Start()
@@ -67,9 +68,10 @@ public class floatingTarget : MonoBehaviour
         if (other.tag == "bullet")
         {
             Debug.Log("Bullet Label:" + other.gameObject.GetComponent<Bullet_Mngr>().GetLabel() + "Obj Label:" + label);
-            if (other.gameObject.GetComponent<Bullet_Mngr>().GetLabel() == label)
+            if (other.gameObject.GetComponent<Bullet_Mngr>().GetLabel() == label && !isOne)
             {
-                //Destroy(gameObject);
+                //isOne is to prevent continuous hits
+                isOne = true;
                 enumerator(label);
             }
             else shooting_Mngr.SeriesNum = 0;
@@ -94,7 +96,7 @@ public class floatingTarget : MonoBehaviour
                 break;
         }
         shooting_Mngr.ScoreNum += 10;
-       
+
         GameObject.Find("Canvas").GetComponent<target_manager>().ObjActive();
         GameObject obj = Instantiate(GameObject.Find("EffectObj"));
         gameObject.SetActive(false);
@@ -103,6 +105,6 @@ public class floatingTarget : MonoBehaviour
         await Task.Delay(1000);
         obj.SetActive(false);
         Destroy(obj);
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 }

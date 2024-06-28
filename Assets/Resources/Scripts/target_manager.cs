@@ -27,7 +27,7 @@ public class target_manager : MonoBehaviour
     //private int selectedObjNum = 3;
     private int selectedObjNum = 9;
     private List<GameObject> gameObjects = new List<GameObject>();
-    private int firstNum = 3;
+    private int ObjIndex = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -47,13 +47,15 @@ public class target_manager : MonoBehaviour
     {
         if (isFirst)
         {
-            for (int i = 0; i < firstNum; i++)
+            for (int i = 0; i < ObjIndex; i++)
             {
                 gameObjects[i].SetActive(true);
             }
             return;
         }
-        gameObjects[firstNum++].SetActive(true);
+        if(ObjIndex<9)
+        gameObjects[ObjIndex++].SetActive(true);
+        Debug.Log("ObjIndex"+ ObjIndex);
     }
 
     // Update is called once per frame
